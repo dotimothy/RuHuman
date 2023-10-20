@@ -25,7 +25,7 @@ A. Hamza et al., "Deepfake Audio Detection via MFCC Features Using Machine Learn
 A. Pianese, D. Cozzolino, G. Poggi and L. Verdoliva, "Deepfake audio detection by speaker verification," 2022 IEEE International Workshop on Information Forensics and Security (WIFS), Shanghai, China, 2022, pp. 1-6, doi: 10.1109/WIFS55849.2022.9975428.
 
 3. Creating Random Challenges for a Human User to Do but the AI can't Do: D-CAPTCHA <br>
-[https://dl.acm.org/doi/fullHtml/10.1145/3579856.3595801](url)
+Lior Yasur, Guy Frankovits, Fred M. Grabovski, and Yisroel Mirsky. 2023. Deepfake CAPTCHA: A Method for Preventing Fake Calls. In ACM ASIA Conference on Computer and Communications Security (ASIA CCS '23), July 10--14, 2023, Melbourne, VIC, Australia. ACM, New York, NY, USA 15 Pages. [https://doi.org/10.1145/3579856.3595801](https://doi.org/10.1145/3579856.3595801)
 
 4. Audio + Video Multimodal Learning for Recognition <br>
 Y. Mroueh, E. Marcheret and V. Goel, "Deep multimodal learning for Audio-Visual Speech Recognition," 2015 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), South Brisbane, QLD, Australia, 2015, pp. 2130-2134, doi: 10.1109/ICASSP.2015.7178347.
