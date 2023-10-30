@@ -32,3 +32,5 @@ Y. Mroueh, E. Marcheret and V. Goel, "Deep multimodal learning for Audio-Visual 
 
 
 ## References
+1. ASVspoof: Automatic Speaker Verification and Spoofing Countermeasures Challenge:
+[https://www.asvspoof.org/](https://www.asvspoof.org/)
