@@ -1,4 +1,4 @@
-# RuHuman: A Resilient Multimodal AI-Powered Verification System with Various Attack and Defense Modes 
+# RuHuman: A Resilient Multimodal AI-Powered Audio Verification System 
 Authors: Timothy Do <br>
 Course: Fall 2023 ECE202A Embedded Systems @ UCLA <br>
 Instructor: Professor Mani Srivastava <br>
