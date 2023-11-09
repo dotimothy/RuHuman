@@ -1,38 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+
+<base target="_blank"> 
 
 <head>
-	<title>RuHuman: An AI-Powered Verification System</title>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>RuHuman</title>
+  <link rel="stylesheet" href="./RuHuman.css"/>
 </head>
 
-<style> 
-	body {
-		background-color:  black;
-	}
-	h1, h2 {
-		font-family: Apple Chancery, cursive;
-		color: whitesmoke;
-	}
-	h1 {
-		font-size:  2.5em;
-	}
-	h2 {
-		font-size:  2em;
-	}
-	a {
-		color: blue;
-		opacity: 100%;
-	}
-	a:hover {
-		opacity: 50%;
-		transition: 0.25s;
-	}
-</style>
+<script>
+  function goGithub() {
+    window.location.href = "https://github.com/dotimothy/RuHuman"
+  }
+</script>
 
 <body>
-	<h1>RuHuman: A Resilient Multimodal AI-Powered Audio Verification System</h1>
+  <a href="https://github.com/dotimothy/RuHuman"><h1 id="ruhuman-a-resilient-multimodal-ai-powered-audio-verification-system">RuHuman: A Resilient Multimodal AI-Powered Audio Verification System</h1></a>
+  <h2 id="abstract">Abstract</h2>
+  <p>The advent of generative AI is inevitable when generating synthetic data to bypass certain human verification systems. The objective of RuHuman is to evaluate/refine existing verification systems presented in ASVSpoof that exploit the multimodalities of audio data in order to establish a strong multi-factored conviction on deciding if the input is being lively uttered by a human or by an audio deepfake. The plan is generate a custom mixed dataset using real human speakers and the top of the line software in voice cloning (e.g. Apple Personal Voice, TortoiseTTS, RVC) to evaluate the standard t-DCF cost function among different detector architectures &amp; make a adaptable user interface that allows any wireless device with a microphone employ these systems in versatile environments.</p>
+  <h2 id="team">Team</h2>
+  <p>Authors: <a href="https://timothydo.me">Timothy Do</a> <br> Course: Fall 2023 ECE202A Embedded Systems @ UCLA <br> Instructor: Professor <a href="https://www.ee.ucla.edu/mani-srivastava/">Mani Srivastava</a> <br></p>
+  <h2 id="required-submissions">Required Submissions</h2>
+  <p><a href="./proposal.html">Project Proposal (In Progress)</a> <br> <a href="https://github.com/dotimothy/RuHuman/blob/main/Report.md">Final Report (In Progress)</a></p>
+  <h2></h2>
+  <p align="center">
+    <img src='./media/RuHuman.png' width='75%'>
+  </p>
 
-	<p align="center">
-		<img src='./media/RuHuman.png' width='45%'>
-	</p>
-
-	<h2>Website Template Build in Progress... Check the Repo in the Meantime: <a href="https://github.com/dotimothy/RuHuman">RuHuman</a></h2>
 </body>
+
+<footer>
+  <img id="home" src='./media/github.png' onclick="goGithub()">
+</footer>
+
+</html>
