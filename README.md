@@ -9,7 +9,7 @@ Course: Fall 2023 ECE202A Embedded Systems @ UCLA <br>
 Instructor: Professor [Mani Srivastava](https://www.ee.ucla.edu/mani-srivastava/) <br>
 
 ## Required Submissions 
-[Project Proposal (In Progress)](https://github.com/dotimothy/RuHuman/blob/main/Proposal.md)
+[Project Proposal (In Progress)](https://github.com/dotimothy/RuHuman/blob/main/Proposal.md) <br>
 [Final Report (In Progress)](https://github.com/dotimothy/RuHuman/blob/main/Report.md)
 
 ##
