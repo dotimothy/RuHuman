@@ -1,0 +1,17 @@
+# RuHuman .gitignore
+
+# Main Audio Liveness Detection Project for ASVSpoof
+
+# All Voice Cloner Project Folders except the get script
+!project/audio/Cloners/getVoiceCloners.py
+project/audio/Cloners
+
+# All Voice Detector Project Folders except the get script
+!project/audio/Detectors/getVoiceCloners.py
+project/audio/Detectors
+
+# All Audio Samples
+Samples
+
+# Extra Multimodal Project that Adds Video as an Extra Dimension for Captcha.
+!project/multimodal/LipNet
