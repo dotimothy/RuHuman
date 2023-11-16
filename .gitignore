@@ -14,4 +14,4 @@ project/audio/Detectors
 Samples
 
 # Extra Multimodal Project that Adds Video as an Extra Dimension for Captcha.
-!project/multimodal/LipNet
+!project/multimodal/LipNet-Pytorch
