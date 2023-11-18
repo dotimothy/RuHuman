@@ -3,16 +3,17 @@
 # Main Audio Liveness Detection Project for ASVSpoof
 
 # All Voice Cloner Project Folders except the get script
-!project/audio/Cloners/getVoiceCloners.py
-project/audio/Cloners
+!projects/audio/Cloners/getVoiceCloners.py
+projects/audio/Cloners/
 
 # All Voice Detector Project Folders except the get script
-!project/audio/Detectors/getVoiceCloners.py
-project/audio/Detectors
+!projects/audio/Detectors/getVoiceCloners.py
+projects/audio/Detectors/
 
 # All Audio Samples but the Ones Shown on Website
 !docs/media/samples
 Samples
 
 # Extra Multimodal Project that Adds Video as an Extra Dimension for Captcha.
-!project/multimodal/LipNet-Pytorch
+!projects/multimodal/LipNet-Pytorch
+
