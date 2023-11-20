@@ -10,8 +10,9 @@ projects/audio/Cloners/
 !projects/audio/Detectors/getVoiceCloners.py
 projects/audio/Detectors/
 
-# All Audio Samples but the Ones Shown on Website
+# All Audio Samples but the Ones Shown on Website & scripts
 !docs/media/samples
+!projects/audio/Samples/getSamples.py
 Samples
 
 # Extra Multimodal Project that Adds Video as an Extra Dimension for Captcha.
