@@ -10,7 +10,7 @@ Instructor: Professor [Mani Srivastava](https://www.ee.ucla.edu/mani-srivastava/
 
 ## Required Submissions 
 [Project Proposal](https://github.com/dotimothy/RuHuman/blob/main/Proposal.md) <br>
-[Midterm Checkpoint Slides](https://github.com/dotimothy/RuHuman/blob/main/docs/media/RuHuman_Midterm.pdf)
+[Midterm Checkpoint Slides](https://github.com/dotimothy/RuHuman/blob/main/docs/media/RuHuman_Midterm.pdf) <br>
 [Final Report (In Progress)](https://github.com/dotimothy/RuHuman/blob/main/Report.md)
 
 ##
