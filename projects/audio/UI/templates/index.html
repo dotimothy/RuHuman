@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<head>
+	<title>RuHuman Audio Verification Server</title>
+	<link rel="shortcut icon" type="image/png" href="../static/favicon.png" />
+</head>
+
+<script>
+	//function for loading file
+	function loadFile(event) {
+		var preview = document.getElementById("preview");
+		var audSrc = document.getElementById("audiosource");
+		var uploadimage = document.getElementById("audioupload"); 
+		var filename = document.getElementById("filename");
+		filename.value = event.target.files[0].name;
+		preview.style.width = '25%';
+		preview.src = URL.createObjectURL(event.target.files[0]);
+		preview.hidden = false;
+		audSrc.hidden = false;
+	}
+
+	function resetPreview() {
+		var preview = document.getElementById("preview");
+		var audSrc = document.getElementById("audiosource");
+		preview.hidden = true;
+		audSrc.hidden = true;
+	}
+</script>
+
+<style>
+	* {
+		font-family:  Courier;
+	}
+	h1 {
+		font-size:  3em;
+	}
+	h2 {
+		font-size: 2.5em;
+	}
+	input {
+		font-size: 2em;
+	}
+	a {
+		color:black;
+	}
+	a:hover {
+		color: blue;
+		transition: 0.1s;
+	}
+	a:active {
+		color: purple;
+		transition: 0.1s;
+	}
+	footer {
+		position: relative;
+		bottom: 2.5%
+	}
+
+</style>
+
+<body>
+	<h1>RuHuman Audio Verification System</h1>
+	<form action="/upload" method="post" enctype="multipart/form-data">
+		<h2>Check if Your Audio is Produced by an AI:</h2>
+		<input type="file" accept='audio/*' name="upload" id="audioupload" onchange="loadFile(event)"/>
+		<input type="hidden" name="filename" id="filename"/>
+		<br>
+		<br>
+		<audio hidden controls id="preview">
+			<source hidden id="audiosource">
+		</audio>
+		<br>
+		<br>
+		<input type="submit" value="Verify Audio" />
+		<input type="reset" onclick="resetPreview()"/>
+	</form>
+	<br>
+	
+</body>
+
+<footer>
+	<a href="https://timothydo.me"><h2>Made by Timothy Do</h2></a>
+	<a href="https://github.com/dotimothy/RuHuman"><h2>Checkout the Github Repo 💻</h2></a>
+</footer>
+
+
+</html>
