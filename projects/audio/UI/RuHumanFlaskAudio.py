@@ -2,6 +2,7 @@
 
 # Libraries 
 from flask import Flask, redirect, url_for, render_template, request, send_file
+import daps
 import os
 
 
@@ -25,9 +26,12 @@ def upload():
 		name = name.replace(' ','_')
 		path = f'./results/{name}'
 		audio.save(path)
+		daps.inputToFlac(path)
+		flacName = f'{name.split(".")[0]}.flac'
+		flacPath = f'./results/{name.split(".")[0]}.flac'
 		nl = '\n'
-		html = f"<h1 style='font-family:Courier'>Your Uploaded Audio ({name})</h1>{nl}<br>{nl}" 
-		html = html + f"<a href={path}><audio controls title={name}/><source src={path}></audio></a>"
+		html = f"<h1 style='font-family:Courier'>Your Converted Audio ({flacName})</h1>{nl}<br>{nl}" 
+		html = html + f"<a href={flacPath}><audio controls title={flacName}/><source src={flacPath}></audio></a>"
 		html = html + f"<h1 style='font-family:Courier'><a href='/'>Return to Homepage</a></h1>{nl}"
 		return html
 	else:
