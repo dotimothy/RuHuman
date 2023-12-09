@@ -1,0 +1,43 @@
+* {
+	font-family:  Courier;
+	background-color: black;
+}
+h1,h2,a {
+	color: white;
+}
+h1 {
+	font-size:  3em;
+}
+h2 {
+	font-size: 2.5em;
+}
+input,button {
+	font-size: 2em;
+	background-color: Yellow;
+}
+input:hover,button:hover {
+	opacity: 50%;
+	transition: 0.1s;
+}
+a {
+	color:white;
+}
+a:hover {
+	color: blue;
+	transition: 0.1s;
+}
+a:active {
+	color: purple;
+	transition: 0.1s;
+}
+footer {
+	position: fixed;
+	bottom: 2.5%
+}
+
+#favicon {
+	width: 10em;
+	position: fixed;
+	right: 1%;
+	top: 1%;
+}

@@ -19,3 +19,4 @@ results
 # Extra Multimodal Project that Adds Video as an Extra Dimension for Captcha.
 !projects/multimodal/LipNet-Pytorch
 
+*.pyc

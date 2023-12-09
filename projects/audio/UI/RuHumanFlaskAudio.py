@@ -30,7 +30,7 @@ def upload():
 		flacName = f'{name.split(".")[0]}.flac'
 		flacPath = f'./results/{name.split(".")[0]}.flac'
 		nl = '\n'
-		html = f"<h1 style='font-family:Courier'>Your Converted Audio ({flacName})</h1>{nl}<br>{nl}" 
+		html = f"<link rel=\"stylesheet\" href=\"../static/style.css\"/><h1 style='font-family:Courier'>Your Converted Audio ({flacName})</h1>{nl}<br>{nl}" 
 		html = html + f"<a href={flacPath}><audio controls title={flacName}/><source src={flacPath}></audio></a>"
 		html = html + f"<h1 style='font-family:Courier'><a href='/'>Return to Homepage</a></h1>{nl}"
 		return html
