@@ -1,0 +1,11 @@
+# UI
+flask
+gdown
+
+# Detectors
+soundfile
+librosa
+tensorboardX
+torch
+
+# Cloners

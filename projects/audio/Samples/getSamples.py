@@ -7,11 +7,13 @@ datasets = {
 		"gdown": "1UGs1o2mDiBO9_iaN-0FupS8x0Tkb4xmt",
 		"name": "2019 LA ASVSpoof",
 		"type": "LA"
+		"ext": ".zip"
 	},
 	"ASVSpoof2021LA": {
 		"link": "https://zenodo.org/records/4837263/files/ASVspoof2021_LA_eval.tar.gz?download=1",
 		"name": "2021 LA ASVSpoof",
 		"type": "LA"
+		"ext": ".tar.gz"
 	}
 }
 
@@ -22,9 +24,9 @@ def getDatasets():
 		if(not(os.path.exists(f"{dataset}.zip"))):
 			print(f'Getting the {datasets[dataset]["name"]} Dataset...')
 			if "gdown" in datasets[dataset]:
-				os.system(f'gdown {datasets[dataset]["gdown"]} -o ./{dataset}.zip')
+				os.system(f'gdown {datasets[dataset]["gdown"]} -o ./{dataset}{datasets[dataset]["ext"]}')
 			else:
-				os.system(f'wget -o ./{dataset}.zip \"{datasets[dataset]["link"]}\"')
+				os.system(f'wget -o ./{dataset}.{datasets[dataset]["ext"]} \"{datasets[dataset]["link"]}\"')
 		if(not(os.path.exists(dataset))):
 			os.system(f"unzip -d {dataset} ./{dataset}.zip ")
 
