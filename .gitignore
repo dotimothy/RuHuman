@@ -8,6 +8,7 @@ projects/audio/Cloners/
 
 # All Voice Detector Project Folders except the get script
 !projects/audio/Detectors/getVoiceCloners.py
+!projects/audio/Detectors/Tortoise
 projects/audio/Detectors/
 
 # All Audio Samples but the Ones Shown on Website & scripts
