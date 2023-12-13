@@ -1,7 +1,7 @@
 # RuHuman: A Resilient Multimodal AI-Powered Audio Verification System 
 
 ## Abstract
-The advent of generative AI is inevitable when generating synthetic data to bypass certain human verification systems. The objective of RuHuman is to evaluate/refine existing verification systems presented in ASVSpoof that exploit the multimodalities of audio data in order to establish a strong multi-factored conviction on deciding if the input is being lively uttered by a human or by an audio deepfake. The plan is generate samples with top of the line software in voice cloning (e.g. TortoiseTTS) to evaluate the standard CM/ASV metrics among different detector architectures & make a adaptable user interface that allows any wireless device with a microphone employ these systems in versatile environments.
+The advent of generative AI is inevitable when generating synthetic data to bypass certain human verification systems. The objective of RuHuman is to evaluate/refine existing verification systems presented in ASVSpoof that exploit the multimodalities of audio data in order to establish a strong multi-factored conviction on deciding if the input is being lively uttered by a human or by an audio deepfake. The plan is generate samples with top of the line software in voice cloning (e.g. TortoiseTTS), then evaluate the standard CM/ASV metrics among different pretrained detector architectures with the ASVSpoof2021 evaluation set & make a adaptable user interface that allows any wireless device with a microphone employ these systems in versatile environments.
 
 ## Team
 Authors: [Timothy Do](https://timothydo.me) <br>
