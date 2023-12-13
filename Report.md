@@ -8,7 +8,7 @@
 * [References](#6-references)
 
 # Abstract
-The advent of generative AI is inevitable when generating synthetic data to bypass certain human verification systems. The objective of RuHuman is to evaluate/refine existing verification systems presented in ASVSpoof that exploit the multimodalities of audio data in order to establish a strong multi-factored conviction on deciding if the input is being lively uttered by a human or by an audio deepfake. The plan is generate a custom mixed dataset using real human speakers and the top of the line software in voice cloning (e.g. Apple Personal Voice, TortoiseTTS, RVC) to evaluate the standard t-DCF cost function among different detector architectures.
+The advent of generative AI is inevitable when generating synthetic data to bypass certain human verification systems. The objective of RuHuman is to evaluate/refine existing verification systems presented in ASVSpoof that exploit the multimodalities of audio data in order to establish a strong multi-factored conviction on deciding if the input is being lively uttered by a human or by an audio deepfake. The plan is generate samples with top of the line software in voice cloning (e.g. TortoiseTTS) to evaluate the standard CM/ASV metrics among different detector architectures & make a adaptable user interface that allows any wireless device with a microphone employ these systems in versatile environments.
 
 # 1. Introduction
 
