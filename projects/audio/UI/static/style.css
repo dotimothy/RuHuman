@@ -2,7 +2,7 @@
 	font-family:  Courier;
 	background-color: black;
 }
-h1,h2,a {
+h1,h2,h3,a,label {
 	color: white;
 }
 h1 {
@@ -10,6 +10,12 @@ h1 {
 }
 h2 {
 	font-size: 2.5em;
+}
+h3, label, select {
+	font-size: 2em;
+}
+select {
+	background-color: white;
 }
 input,button {
 	font-size: 2em;

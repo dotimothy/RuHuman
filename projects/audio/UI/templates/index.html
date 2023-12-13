@@ -6,14 +6,12 @@
 	<link rel="stylesheet" href="../static/style.css"/>
 </head>
 
-<base target="_blank">
-
 <body>
 	<h1>RuHuman Audio Verification System</h1>
 		<h2>Check if Your Audio is Produced by an AI:</h2>
 		<div id="recordAudio">
 			<h2>Option 1: Record a Live Sample</h2>
-			<button id="record" onclick="startRecording()">Record</button>
+			<button id="record" onclick="startDelayRecording(250)">Record</button>
 			<button id="stop" hidden onclick="stopRecording()">Stop Record</button>
 			<br>
 		</div>
@@ -28,6 +26,12 @@
 			<div id="verifyAudio">
 				<input type="submit" value="Verify Audio" />
 				<input type="reset" onclick="resetPreview()"/>
+				<br><br>
+				<label for="detectors">Choose a Detector Model:</label>
+				<select id="detectors" name="detectors">
+					<option value="Tortoise">Tortoise</option>
+				</select>
+
 			</div>
 		</form>
 		<br><br>
@@ -45,8 +49,8 @@
 </body>
 
 <footer>
-	<a href="https://timothydo.me"><h2>Made by Timothy Do</h2></a>
-	<a href="https://github.com/dotimothy/RuHuman"><h2>Checkout the Github Repo 💻</h2></a>
+	<a target="_blank" href="https://timothydo.me"><h3>Made by Timothy Do</h3></a>
+	<h3>Checkout the <a target="_blank" href="https://github.com/dotimothy/RuHuman">Github Repo 💻</a> and <a target="_blank" href="https://timothydo.me/RuHuman">Website 🌎</a></h3>
 </footer>
 
 <script src="../static/UI.js"></script>

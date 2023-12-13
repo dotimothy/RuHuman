@@ -53,8 +53,12 @@ function startRecording() {
 	uploadOption.hidden = true;
 	startRecord.hidden = true;
 	stopRecord.hidden = false;
+	verifyAudio.hidden = true;
   	recorder.start();
-  	verifyAudio.hidden = true;
+}
+
+function startDelayRecording(delay) {
+	setTimeout(startRecording,delay);
 }
 
 //Stops Records and Saves File to the Form to Upload
@@ -71,7 +75,7 @@ function pushRecordToPreview(e) {
 	preview.src = URL.createObjectURL(e.data);
 	preview.hidden = false;
 	audSrc.hidden = false;
-	var file = new File([e.data],filename.value,{type:"audio/webm",lastModified:new Date().getTime()});
+	var file = new File([e.data],filename.value,{type:"audio/weba",lastModified:new Date().getTime()});
 	var container = new DataTransfer();
 	container.items.add(file)
 	audioUpload.files = container.files;

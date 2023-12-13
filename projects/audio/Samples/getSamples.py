@@ -28,7 +28,7 @@ def getDatasets():
 			else:
 				os.system(f'wget -o ./{dataset}.{datasets[dataset]["ext"]} \"{datasets[dataset]["link"]}\"')
 		if(not(os.path.exists(dataset))):
-			os.system(f"unzip -d {dataset} ./{dataset}.zip ")
+			os.system(f"unzip -d {dataset} ./{dataset}{dataset}{datasets[dataset]["ext"]} ")
 
 if __name__ == '__main__':
 	getDatasets()

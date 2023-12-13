@@ -4,6 +4,7 @@
 from flask import Flask, redirect, url_for, render_template, request, send_file
 import daps
 import os
+import time
 
 
 # Creating the app 
@@ -19,6 +20,7 @@ def upload():
 	if request.method == "POST": 
 		audio = request.files['upload']
 		name = request.form['filename']
+		detector = request.form['detectors']
 		if not audio or not name:
 			return render_template('noaudio.html')
 		if(not os.path.exists(os.getcwd() + '\\results')):
@@ -26,13 +28,20 @@ def upload():
 		name = name.replace(' ','_')
 		path = f'./results/{name}'
 		audio.save(path)
-		daps.inputToFlac(path)
-		flacName = f'{name.split(".")[0]}.flac'
-		flacPath = f'./results/{name.split(".")[0]}.flac'
+		wavPath = daps.inputToWav(path)
+		wavName = os.path.basename(wavPath)
+		start = time.time()
+		probAI = daps.sendToDetector(wavPath,detector)
+		duration = time.time() - start
+		melPlotPath = daps.plotMelSpectrogram(wavPath)
 		nl = '\n'
-		html = f"<link rel=\"stylesheet\" href=\"../static/style.css\"/><h1 style='font-family:Courier'>Your Converted Audio ({flacName})</h1>{nl}<br>{nl}" 
-		html = html + f"<a href={flacPath}><audio controls title={flacName}/><source src={flacPath}></audio></a>"
-		html = html + f"<h1 style='font-family:Courier'><a href='/'>Return to Homepage</a></h1>{nl}"
+		html = f"<link rel=\"stylesheet\" href=\"../static/style.css\"/><h1 style='font-family:Courier'>Your Uploaded Audio Sample: ({wavName})</h1>{nl}<br>{nl}" 
+		html = html + f"<a href={wavPath}><audio controls title={wavName}><source src={wavPath}></audio></a>"
+		html = html + f"<h2>Features:</h2><img width='50%' src='{melPlotPath}'' />"
+		html = html + f"<h2>Detector Model: {detector} (Detected in {duration:.2f} seconds)"
+		html = html + f"<h2>Probablity of Being Spoofed by Generative AI via {detector} Model: {probAI*100:.2f}%"
+		html = html + f"<h1><a href='/'>Return to Homepage</a></h1>{nl}"
+		html = html + f"<img id='favicon' src='../static/favicon.png'>"
 		return html
 	else:
 		return redirect(url_for('home'))
@@ -55,4 +64,8 @@ def results(name):
 # Debug if the same file as run
 if __name__ == "__main__":
 	clear()
-	app.run(debug=True,host='0.0.0.0',port=8080)
+	if(os.path.exists('cert.pem') and os.path.exists('key.pem')): # Run as https
+		app.run(debug=True,host='0.0.0.0',port=8080,ssl_context=('cert.pem', 'key.pem'))
+	else: 
+		print("RuHuman Flask Server missing cert.pem and key.pem files. Please generate them in OpenSSL for full functionality.")
+		app.run(debug=True,host='0.0.0.0',port=8080)
