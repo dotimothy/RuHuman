@@ -34,8 +34,6 @@ def load_tortoise(clipPath):
     return clip
 
 
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--clip', type=str, help='Path to an audio clip to classify.', default="./test.wav")

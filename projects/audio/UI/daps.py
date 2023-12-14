@@ -17,8 +17,14 @@ import time
 
 # Add Detector Pipelines 
 sys.path.append('../Detectors/Tortoise/')
+sys.path.append('../Detectors/2021Baseline/LA/Baseline-RawNet2')
+# Tortoise
 import tortify
+# LFCC-GMM/CQCC-GMM
 import matlab.engine
+# Baseline RawNet2
+import rawnetify
+
 eng = matlab.engine.start_matlab()
 
 
@@ -61,13 +67,15 @@ def lfccGMMClassify(path):
 	eng.cd('../Detectors/2021Baseline/LA/Baseline-LFCC-GMM/matlab/')
 	cm = eng.lfccgmm(f"../../../../../UI/{path}")
 	eng.cd('../../../../../UI/')
-	return 100/(1+np.exp(-cm)) # Formulation to Convert LLR into a Probablity
+	prob = 100*(1-np.exp(cm)) # Formulation to Convert LLR into a Probablity
+	return prob if prob > 0 else 0 
 
 def cqccGMMClassify(path):
 	eng.cd('../Detectors/2021Baseline/LA/Baseline-CQCC-GMM/matlab/')
 	cm = eng.cqccgmm(f"../../../../../UI/{path}")
 	eng.cd('../../../../../UI/')
-	return 100/(1+np.exp(-cm))  # Formulation to Convert LLR into a Probablity
+	prob = 100*(1-np.exp(cm)) # Formulation to Convert LLR into a Probablity
+	return prob if prob > 0 else 0 
 
 
 # Sends the Audio Path to the Detector to Compute Scores
@@ -77,12 +85,14 @@ def sendToDetector(path,detector='Tortoise'):
 	loadings = {
 		'Tortoise': tortify.load_tortoise,
 		'LFCC-GMM': returnPath,
-		'CQCC-GMM': returnPath
+		'CQCC-GMM': returnPath,
+		'RawNet2': returnPath
 	}
 	detects = {
 		'Tortoise':	tortify.classify_audio_clip,
 		'LFCC-GMM': lfccGMMClassify,
-		'CQCC-GMM': cqccGMMClassify
+		'CQCC-GMM': cqccGMMClassify,
+		'RawNet2': rawnetify.classify
 	}
 	audio = loadings[detector](path)
 	return detects[detector](audio) # Returns a Probablity of Being AI
@@ -108,7 +118,7 @@ def computeDetectorMetric(setPath,detector='Tortoise',modelFormat='wav'):
 		start = time.time()
 		cm = sendToDetector(f'{wavPath}/{wav}',detector,detector!='Tortoise')
 		duration = time.time() - start
-		print(f'{flac} has {cm*100}% of being spoofed by AI ({duration} s)')
+		print(f'{flac} has {cm}% of being spoofed by AI ({duration} s)')
 		writer.writerow([flac,float(cm),duration])
 	resultCSV.close()
 
