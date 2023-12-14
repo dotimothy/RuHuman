@@ -17,7 +17,7 @@ import time
 
 # Add Detector Pipelines 
 sys.path.append('../Detectors/Tortoise/')
-import classify as tortify
+import tortify
 import matlab.engine
 eng = matlab.engine.start_matlab()
 
@@ -59,15 +59,15 @@ def returnPath(path):
 
 def lfccGMMClassify(path):
 	eng.cd('../Detectors/2021Baseline/LA/Baseline-LFCC-GMM/matlab/')
-	llk_spoof = eng.lfccgmm(f"../../../../../UI/{path}")
+	cm = eng.lfccgmm(f"../../../../../UI/{path}")
 	eng.cd('../../../../../UI/')
-	return 100/(1+np.exp(-llk_spoof))
+	return 100/(1+np.exp(-cm)) # Formulation to Convert LLR into a Probablity
 
 def cqccGMMClassify(path):
 	eng.cd('../Detectors/2021Baseline/LA/Baseline-CQCC-GMM/matlab/')
-	llk_spoof = eng.cqccgmm(f"../../../../../UI/{path}")
+	cm = eng.cqccgmm(f"../../../../../UI/{path}")
 	eng.cd('../../../../../UI/')
-	return 100/(1+np.exp(-llk_spoof))
+	return 100/(1+np.exp(-cm))  # Formulation to Convert LLR into a Probablity
 
 
 # Sends the Audio Path to the Detector to Compute Scores
