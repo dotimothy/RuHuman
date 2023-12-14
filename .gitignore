@@ -15,6 +15,7 @@ projects/audio/Detectors/
 !docs/media/samples
 !projects/audio/Samples/getSamples.py
 Samples
+!docs/media/samples
 results
 
 # Extra Multimodal Project that Adds Video as an Extra Dimension for Captcha. (After Fall Quarter)

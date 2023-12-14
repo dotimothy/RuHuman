@@ -15,13 +15,18 @@ def classify_audio_clip(clip):
     :return: True if the clip was classified as coming from Tortoise and false if it was classified as real.
     """
     modelPath = f'{os.path.dirname(os.path.abspath(__file__))}./classifier.pth'
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
     classifier = AudioMiniEncoderWithClassifierHead(2, spec_dim=1, embedding_dim=512, depth=5, downsample_factor=4,
                                                     resnet_blocks=2, attn_blocks=4, num_attn_heads=4, base_channels=32,
                                                     dropout=0, kernel_size=5, distribute_zero_label=False)
-    classifier.load_state_dict(torch.load(modelPath, map_location=torch.device('cpu')))
-    clip = clip.cpu().unsqueeze(0)
+    classifier.load_state_dict(torch.load(modelPath, map_location=torch.device(device)))
+    clip = clip.unsqueeze(0) if torch.cuda.is_available() else clip.cpu().unsqueeze(0)
+    clip = clip.to('cuda')
+    classifier.to('cuda')
+    #classifier.load_state_dict(torch.load(modelPath, map_location=torch.device('cpu')))
+    #clip = clip.cpu().unsqueeze(0) 
     results = F.softmax(classifier(clip), dim=-1)
-    return results[0][0]
+    return 100*results[0][0]
 
 def load_tortoise(clipPath):
     clip = load_audio(clipPath, 24000)

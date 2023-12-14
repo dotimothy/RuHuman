@@ -2,7 +2,7 @@
 	font-family:  Courier;
 	background-color: black;
 }
-h1,h2,h3,a,label {
+h1,h2,h3,a,label,option {
 	color: white;
 }
 h1 {

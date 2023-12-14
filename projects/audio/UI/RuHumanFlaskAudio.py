@@ -39,7 +39,7 @@ def upload():
 		html = html + f"<a href={wavPath}><audio controls title={wavName}><source src={wavPath}></audio></a>"
 		html = html + f"<h2>Features:</h2><img width='50%' src='{melPlotPath}'' />"
 		html = html + f"<h2>Detector Model: {detector} (Detected in {duration:.2f} seconds)"
-		html = html + f"<h2>Probablity of Being Spoofed by Generative AI via {detector} Model: {probAI*100:.2f}%"
+		html = html + f"<h2>Probablity of Being Spoofed by Generative AI via {detector} Model: {probAI:.2f}%"
 		html = html + f"<h1><a href='/'>Return to Homepage</a></h1>{nl}"
 		html = html + f"<img id='favicon' src='../static/favicon.png'>"
 		return html
