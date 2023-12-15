@@ -134,6 +134,6 @@ def computeDetectorMetric(setPath,detector='Tortoise',modelFormat='wav'):
 	resultCSV.close()
 
 if __name__ == '__main__':
-	#print(float(sendToDetector('./static/LA_E_1000048.wav','CQCC-GMM')))
+	print(float(sendToDetector('./static/LA_E_1000048.wav','RawNet2')))
 	#plotMelSpectrogram('./static/LA_E_1000048.flac')
 	#computeDetectorMetric('../Samples/ASVspoof2021LA/ASVspoof2021_LA_eval')

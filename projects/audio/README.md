@@ -19,4 +19,4 @@
 4. Go to the Samples folder and run <code>getSamples.py</code> which downloads the ASVspoof datasets (may take a long time). If this script doesn't work, you may download them manually by referring to direct links([ASVSpoof2019](https://www.asvspoof.org/database) and [ASVSpoof2021](https://zenodo.org/record/4837263). Once downloaded rename the datasets to ASVSpoof2019LA and ASVSpoof2021LA respectively.
 5. Download all keys and metadata for [ASVSpoof2021] under 'Evaluation Keys and MetaData'. Compiled them all under a folder called 'keys' and store them in <code>'./Detectors/2021Baseline/eval-package/keys'</code>.
 6. Move all Refactored files to make the callable functions to the user interface by running <code>refactor.py</code> in the Detector folder.
-8. You should be all set to use the user interface! To run go to the UI folder and run <code>RuHumanFlaskAudio.py</code>.
+7. You should be all set to use the user interface! To run the app, go to the UI folder and run <code>RuHumanFlaskAudio.py</code>. The client should be able to access the interface from [http://localhost:8080](http://localhost:8080).

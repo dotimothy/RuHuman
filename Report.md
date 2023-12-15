@@ -29,7 +29,7 @@ There have been work in ASVSpoof submissions that fuse multiple audio encoding m
 
 # 3. Technical Approach
 
-(High-Level Overview of Two Phases). The cloud computer that hosts the Python Flask Server with Classification Backends is equipped with an NVIDIA RTX 3080 GPU, Intel Core i9-12900K CPU, and 64GB DDR5 RAM.
+(High-Level Overview of Two Phases). The cloud computer that hosts the Python Flask Server with Classification Backends is equipped with an NVIDIA RTX 3080 GPU.
 
 Overview of Cloners
 
