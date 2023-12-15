@@ -8,6 +8,7 @@
 3. [MATLAB R2023b](https://www.mathworks.com/?s_tid=gn_logo) (other versions untested)
 4. [Matlab Engine for Python](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html)
 5. [unzip](https://gnuwin32.sourceforge.net/packages/unzip.htm) 
+6. [ffmpeg](https://www.ffmpeg.org/download.html#build-windows)
 7. [Git for Windows](https://gitforwindows.org/)
 
 # Installation Instructions
