@@ -64,10 +64,10 @@ Tabulated Below are Average Computation Times for verifying a sample from the AS
 
 | Detector Architecture (AWGN)  | Average Computation Time (s) |
 | ------------- | ------------- | ------------- |
-| Tortoise Audio Mini Encoder (MATLAB)  | 0.22  |
+| Tortoise Audio Mini Encoder (Python)  | 0.22  |
 | Baseline LFCC-GMM (MATLAB)  | 0.18  | 
 | Baseline CQCC-GMM (MATLAB)  | 0.27  | 
-| Baseline RawNet2 (MATLAB)  | 0.30  | 
+| Baseline RawNet2 (Python)  | 0.30  | 
 
 ## Phase 2: Implementation of User Interface
 The user interface has been completed and is showcased in the following YouTube video: 
