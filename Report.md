@@ -72,6 +72,9 @@ Tabulated Below are Average Computation Times for verifying a sample from the AS
 ## Phase 2: Implementation of User Interface
 The user interface has been completed and is showcased in the following YouTube video: 
 [https://youtu.be/KU3gJ5L9Puw](https://youtu.be/KU3gJ5L9Puw) 
+<p align="center">
+  <a target="_blank" href="https://youtu.be/KU3gJ5L9Puw"><img src='./docs/media/progress/UI_2.png' width='75%'></a>
+</p>
 
 # 5. Discussion and Conclusions
 
