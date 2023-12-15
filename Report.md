@@ -63,7 +63,7 @@ The full raw CM Scores that generated the above metrics using <code>eval-package
 Tabulated Below are Average Computation Times for verifying a sample from the ASVSpoof2021 dataset. For context, each audio sample is approximately 3-5 seconds in length.
 
 | Detector Architecture (AWGN)  | Average Computation Time (s) |
-| ------------- | ------------- | ------------- |
+| ------------- | ------------- 
 | Tortoise Audio Mini Encoder (Python)  | 0.22  |
 | Baseline LFCC-GMM (MATLAB)  | 0.18  | 
 | Baseline CQCC-GMM (MATLAB)  | 0.27  | 
