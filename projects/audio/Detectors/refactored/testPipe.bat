@@ -1,0 +1,1 @@
+python main.py --track=LA --loss=CCE --is_eval --eval  --model_path=./pre_trained_DF_RawNet2/pre_trained_DF_RawNet2.pth --protocols_path=../../../../Samples/ASVspoof2021LA/ASVspoof2021_LA_eval/ --database_path=../../../../Samples/ASVspoof2021LA/ --eval_output=LA_RawNet2_cm_scores_awgn_50.txt

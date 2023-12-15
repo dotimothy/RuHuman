@@ -1,5 +1,5 @@
 # Table of Contents
-* Abstract
+* [Abstract](#abstract)
 * [Introduction](#1-introduction)
 * [Related Work](#2-related-work)
 * [Technical Approach](#3-technical-approach)
@@ -8,44 +8,47 @@
 * [References](#6-references)
 
 # Abstract
-The advent of generative AI is inevitable when generating synthetic data to bypass certain human verification systems. The objective of RuHuman is to evaluate/refine existing verification systems presented in ASVSpoof that exploit the multimodalities of audio data in order to establish a strong multi-factored conviction on deciding if the input is being lively uttered by a human or by an audio deepfake. The plan is generate samples with top of the line software in voice cloning (e.g. TortoiseTTS), then evaluate the standard CM/ASV metrics among different pretrained detector architectures with the ASVSpoof2021 evaluation set & make a adaptable user interface that allows any wireless device with a microphone employ these systems in versatile environments.
-
+The advent of generative AI is inevitable when generating synthetic data to bypass certain human verification systems. The objective of RuHuman is to evaluate/refine existing verification systems presented in ASVSpoof that exploit the multimodalities of audio data in order to establish a strong multi-factored conviction on deciding if the input is being lively uttered by a human or by an audio deepfake. The technical approach is to generate samples with top of the line software in voice cloning (e.g. TortoiseTTS), then evaluate the standard CM/ASV metrics among different pretrained detector architectures with the ASVSpoof2021 evaluation set & make a adaptable user interface that allows any wireless device with a microphone employ these systems in versatile environments.
 
 # 1. Introduction
-
-This section should cover the following items:
-
-* Motivation & Objective: What are you trying to do and why? (plain English without jargon)
-* State of the Art & Its Limitations: How is it done today, and what are the limits of current practice?
-* Novelty & Rationale: What is new in your approach and why do you think it will be successful?
-* Potential Impact: If the project is successful, what difference will it make, both technically and broadly?
-* Challenges: What are the challenges and risks?
-* Requirements for Success: What skills and resources are necessary to perform the project?
-* Metrics of Success: What are metrics by which you would check for success?
+The advent of generative AI is inevitable when generating synthetic data to bypass certain human verification systems. With advancements in audio deepfakes, human pereption in distinguishing a real human speaker from an audio deepfake is rapidly increasing in complexity. This is unfourtanely seen in the growing number of audio deepfake crimes, including a [recent story](https://www.youtube.com/watch?v=Dfo2MMGZTvU) on the news highlighting a mother almost being scammed out of $15,000 from a deepfake of her daughter being kidnapped. The assistance of an automated AI-powered audio verification that's easily accessible is essential for mitigating more people from falling victim of these schemes.
 
 The objective of RuHuman is to evaluate/refine existing verification systems that exploit the multimodalities of audio data in order to establish a strong multi-factored conviction on deciding if the input is being lively uttered by a human or by some other medium (e.g. recording playback or synthesized with generative AI). Additionally, the project aims to be easily accessible to the general public, being able to be employed on any client wireless device that has a microphone. This makes liveness detection versatile in many environments such as robocalls & virtual interviews.
 
-Audio ASVSpoof (Automatic Speaker Verification and Spoofing Countermeasure Challenge) is a dedicated challenge that gathers researchers from around the world to developing audio spoofing pipelines. The two problems explored in this challenge are Logical Access (LA) attacks (Speech Synthesis/Voice Conversions) and Physical Attacks (PA) (Replay through Speaker). Researchers have presented audio encoding schemes such as MFCC (Mel-frequency cepstral coefficients) & Spectrogram graphs to augment training their classifiers for detection. The limits of the practice is that some datasets used for training in the competition were in a controlled environment, which limits the effect of alternative additive sources in real-world applications (e.g. noise, multi-speakers, nature).
+Audio ASVSpoof (Automatic Speaker Verification and Spoofing Countermeasure Challenge) is a dedicated challenge that gathers researchers from around the world to developing audio spoofing pipelines. The two problems explored in this challenge are Logical Access (LA) attacks (Speech Synthesis/Voice Conversions) and Physical Attacks (PA) (Replay through Speaker). Researchers have presented audio encoding schemes such as MFCC (Mel-frequency cepstral coefficients) & Spectrograms to augment training their classifiers for detection. The limits of the practice is that some datasets used for training in the competition were in a controlled environment, which limits the effect of alternative additive sources in real-world applications (e.g. noise, multi-speakers, nature). RuHuman investigates how additive noise sources effect the performance of systems by injecting them with the audio sample before testing. If this project yields success, the approach should indicate to researchers in the ASVspoof competition that the technical factors of additive sound sources is imperative for training their submissions in real-world environments. On a more broader sense, the user interface that will be implemented should make it easy for the general public to assess if their audio files were uttered by a real human. They should be able to access audio liveness detection from a large range of computing: from a smartphone to an audio workstation.
 
-The approach of RuHuman is to first evaluate the performance of existing submissions of the ASVSpoof competitions with the ASVSpoof 2021 evaluation dataset. Afterwards, RuHuman will evaluate performance by augmenting audio samples that have additive sound sources along with the speaker source. Finally, the evaluation dataset will be evaluated against a state of the art model.  Afterwards, a user interface will be implemented such that any gateway device that has access to the internet can record/upload their audio sample and get their results through HTTP requests.
+Potential challenges when evaluating these audio liveness detection systems come from advanced spoof attacks such as multi-speakers. For instance, a real human can utter a words for the first few seconds in the sample, and then generative AI can synthesize the rest of the audio, leading to the system potentially classifying the sample only based on the initial audio samples. Another way for a potential spoof is if a human and generative AI spoke concurrently, it can produce a hidden set, potentially leading to a false positive classification. 
 
-If this project yields success, the approach should indicate to researchers in the ASVspoof competition that the technical factors of additive sound sources is imperative for implementing their submissions in real-world environments. On a more broader sense, the user interface that will be implemented should make it easy for the general public to assess if their audio files were uttered by a real human. They should be able to access audio liveness detection from a large range of computing: from a smartphone to an audio workstation.
+In the development of this project, a strong command of Digital Speech Processing is required when working with analysis of audio files. Specifically, knowledge of STFT (short-time Fourier Transform) and other frequency based audio encodings will be applied in many of these implementations. Knowledge of neural network architectures are useful for training the detector to infer on real-world audio samples. Hardware resources to development RuHuman are NVIDIA GPU(s) with high VRAM (e.g. NVIDIA RTX 3090) for their acceleration improvements performing convolution. Software resources for RuHuman include Pytorch which is the code baseline for many of the deepfake voice detectors/synthesizers. The program dependencies of this project are the various deepfake voice cloning programs (e.g. TortoiseTTS) and voice detectors submitted to ASVSpoof.
 
-Potential challenges when evaluating these audio liveness detection systems come from advanced spoof attacks such as multi-speakers. For instance, a real human can utter a words for the first few seconds in the sample, and then generative AI can synthesize the rest of the audio, leading to the system potentially classifying the sample only based on the initial audio samples. Another way for a potential spoof is if a human and  generative AI spoke concurrently, it can produce a hidden set, potentially leading to a false positive classification. 
-
-The success for evaluating each of the submissions of ASVSpoof is to evaluate them against the tandem detection cost function (t-DCF) formulated by the authors of ASVSpoof. Secondary metrics to evaluate success with be the equal error rate (EER) and computation time of each submission. These metrics will be computed with respect to the augmented dataset mentioned in the previous sections of this proposal.
+The success for evaluating each of the submissions of ASVSpoof is to evaluate them against the tandem detection cost function (t-DCF) formulated by the authors of ASVSpoof. Secondary metrics to evaluate success with be the equal error rate (EER) and computation time of each submission. The objective is to minimize these metrics for efficiency and accuracy. These metrics will be computed with respect to the augmented dataset mentioned previously.
 
 # 2. Related Work
 
-Talk about ASVSpoof2021 summary results in the paper.
+There have been work in ASVSpoof submissions that fuse multiple audio encoding models together in order to further minimize t-DCF and EER metrics. Specifically, an ASVSpoof2019 submission from UCLA NESL (Network and Embedded Systems Laboratory) implemented residual neural networks using ResNet blocks, with the input features being embedded from either log-STFT,  MFCC, or CQCC transforms.
 
 # 3. Technical Approach
 
-Explain the pipeline very clearly (from converting the audio file in UI, to generating CM scores, and passing that to t-DCF/EER for results)
+(High-Level Overview of Two Phases). The cloud computer that hosts the Python Flask Server with Classification Backends is equipped with an NVIDIA RTX 3080 GPU, Intel Core i9-12900K CPU, and 64GB DDR5 RAM.
+
+Overview of Cloners
+
+Overview of Detectors
+
+Overview of User Interface
+
+
 
 # 4. Evaluation and Results
 
+## Metrics:
 Table with following columns: Author-Architecture | Dataset | t-DCF | EER | Computation Time
+
+For viewing full raw CM Scores that generated the above metrics can be found in the [results](https://github.com/dotimothy/RuHuman/tree/main/docs/results) folder of the repository.
+
+## Demo:
+The user interface has been completed and is showcased in the following YouTube video: 
+[https://youtu.be/KU3gJ5L9Puw](https://youtu.be/KU3gJ5L9Puw) 
 
 # 5. Discussion and Conclusions
 

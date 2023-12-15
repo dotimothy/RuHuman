@@ -52,11 +52,22 @@ def inputToWav(inputPath):
 def plotMelSpectrogram(inputPath):
 	plotPath = f'{os.path.splitext(inputPath)[0]}_mel.jpg'
 	audio, fs = librosa.load(inputPath)
-	melSpectrogram = librosa.power_to_db(librosa.feature.melspectrogram(y=audio,sr=fs),ref=1.0) # Retrieve the Mel-Features in dB
+	melSpectrogram = librosa.power_to_db(librosa.feature.melspectrogram(y=audio,sr=fs),ref=np.max) # Retrieve the Mel-Features in dB
 	plt.figure(figsize=(10,4)) 
 	librosa.display.specshow(melSpectrogram,x_axis='time',y_axis='mel',sr=fs,cmap='coolwarm')
 	plt.colorbar(format='%+2.0f dB')
 	plt.title(f'Mel Spectrogram of {os.path.basename(inputPath)}')
+	plt.savefig(plotPath)
+	return plotPath
+
+def plotSpectrogram(inputPath):
+	plotPath = f'{os.path.splitext(inputPath)[0]}_spec.jpg'
+	audio, fs = librosa.load(inputPath)
+	spectrogram = librosa.amplitude_to_db(np.abs(librosa.stft(y=audio)),ref=np.max) # Retrieve the Spectrogram in dB
+	plt.figure(figsize=(10,4)) 
+	librosa.display.specshow(spectrogram,x_axis='time',y_axis='linear',sr=fs,cmap='viridis')
+	plt.colorbar(format='%+2.0f dB')
+	plt.title(f'Spectrogram of {os.path.basename(inputPath)}')
 	plt.savefig(plotPath)
 	return plotPath
 
@@ -123,6 +134,6 @@ def computeDetectorMetric(setPath,detector='Tortoise',modelFormat='wav'):
 	resultCSV.close()
 
 if __name__ == '__main__':
-	print(float(sendToDetector('./static/LA_E_1000048.wav','CQCC-GMM')))
-	#plotMelSpectrogram('./static/Tortoise.mp3')
+	#print(float(sendToDetector('./static/LA_E_1000048.wav','CQCC-GMM')))
+	#plotMelSpectrogram('./static/LA_E_1000048.flac')
 	#computeDetectorMetric('../Samples/ASVspoof2021LA/ASVspoof2021_LA_eval')
