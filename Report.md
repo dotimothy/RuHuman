@@ -15,7 +15,7 @@ The advent of generative AI is inevitable when generating synthetic data to bypa
 
 The objective of RuHuman is to evaluate/refine existing verification systems that exploit the multimodalities of audio data in order to establish a strong multi-factored conviction on deciding if the input is being lively uttered by a human or by some other medium (e.g. recording playback or synthesized with generative AI). Additionally, the project aims to be easily accessible to the general public, being able to be employed on any client wireless device that has a microphone. This makes liveness detection versatile in many environments such as robocalls & virtual interviews.
 
-Audio ASVSpoof (Automatic Speaker Verification and Spoofing Countermeasure Challenge) is a dedicated challenge that gathers researchers from around the world to developing audio spoofing pipelines. The two problems explored in this challenge are Logical Access (LA) attacks (Speech Synthesis/Voice Conversions) and Physical Attacks (PA) (Replay through Speaker). Researchers have presented audio encoding schemes such as MFCC (Mel-frequency cepstral coefficients) & Spectrograms to augment training their classifiers for detection. The limits of the practice is that some datasets used for training in the competition were in a controlled environment, which limits the effect of alternative additive sources in real-world applications (e.g. noise, multi-speakers, nature). RuHuman investigates how additive noise sources effect the performance of systems by injecting them with the audio sample before testing. If this project yields success, the approach should indicate to researchers in the ASVspoof competition that the technical factors of additive sound sources is imperative for training their submissions in real-world environments. On a more broader sense, the user interface that will be implemented should make it easy for the general public to assess if their audio files were uttered by a real human. They should be able to access audio liveness detection from a large range of computing: from a smartphone to an audio workstation.
+Audio ASVSpoof (Automatic Speaker Verification and Spoofing Countermeasure Challenge) [1] is a dedicated challenge that gathers researchers from around the world to developing audio spoofing pipelines. The two problems explored in this challenge are Logical Access (LA) attacks (Speech Synthesis/Voice Conversions) and Physical Attacks (PA) (Replay through Speaker). Researchers have presented audio encoding schemes such as MFCC (Mel-frequency cepstral coefficients) & Spectrograms to augment training their classifiers for detection. The limits of the practice is that some datasets used for training in the competition were in a controlled environment, which limits the effect of alternative additive sources in real-world applications (e.g. noise, multi-speakers, nature). RuHuman investigates how additive noise sources effect the performance of systems by injecting them with the audio sample before testing. If this project yields success, the approach should indicate to researchers in the ASVspoof competition that the technical factors of additive sound sources is imperative for training their submissions in real-world environments. On a more broader sense, the user interface that will be implemented should make it easy for the general public to assess if their audio files were uttered by a real human. They should be able to access audio liveness detection from a large range of computing: from a smartphone to an audio workstation.
 
 Potential challenges when evaluating these audio liveness detection systems come from advanced spoof attacks such as multi-speakers. For instance, a real human can utter a words for the first few seconds in the sample, and then generative AI can synthesize the rest of the audio, leading to the system potentially classifying the sample only based on the initial audio samples. Another way for a potential spoof is if a human and generative AI spoke concurrently, it can produce a hidden set, potentially leading to a false positive classification. 
 
@@ -25,7 +25,7 @@ The success for evaluating each of the submissions of ASVSpoof is to evaluate th
 
 # 2. Related Work
 
-There have been work in ASVSpoof submissions that fuse multiple audio encoding models together in order to further minimize t-DCF and EER metrics. Specifically, an ASVSpoof2019 submission from UCLA NESL (Network and Embedded Systems Laboratory) implemented residual neural networks using ResNet blocks, with the input features being embedded from either log-STFT,  MFCC, or CQCC transforms.
+There have been work in ASVSpoof submissions that fuse multiple audio encoding models together in order to further minimize t-DCF and EER metrics. Specifically, an ASVSpoof2019 submission from UCLA NESL (Network and Embedded Systems Laboratory) implemented residual neural networks using ResNet blocks, with the input features being embedded from either log-STFT,  MFCC, or CQCC transforms. 
 
 # 3. Technical Approach
 
@@ -41,12 +41,35 @@ Overview of User Interface
 
 # 4. Evaluation and Results
 
-## Metrics:
-Table with following columns: Author-Architecture | Dataset | t-DCF | EER | Computation Time
+## Phase 1: Evaluation of Metrics:
+### Accuracy: t-DCF & EER
+Tabulated Below are Pooled t-DCF and EERs for the 2021 ASVSpoof Evaluation Set for it's Baseline Models with & without Additive Noise Sources:
 
-For viewing full raw CM Scores that generated the above metrics can be found in the [results](https://github.com/dotimothy/RuHuman/tree/main/docs/results) folder of the repository.
+| Detector Architecture (Normal)  | Pooled t-DCF | Pooled EER (%)
+| ------------- | ------------- | ------------- |
+| Baseline LFCC-GMM (MATLAB)  | 0.5758  | 19.30  |
+| Baseline CQCC-GMM (MATLAB)  | 0.4964  | 15.62  |
+| Baseline RawNet2 (MATLAB)  | 0.4964  | 15.62  |
 
-## Demo:
+| Detector Architecture (AWGN)  | Pooled t-DCF | Pooled EER (%)
+| ------------- | ------------- | ------------- |
+| Baseline LFCC-GMM (MATLAB)  | 0.8527  | 41.33  |
+| Baseline CQCC-GMM (MATLAB)  | 0.7609  | 31.99  |
+| Baseline RawNet2 (MATLAB)  | 0.3317  | 7.23  |
+
+The full raw CM Scores that generated the above metrics using <code>eval-package</code> can be found in the [results](https://github.com/dotimothy/RuHuman/tree/main/docs/results) folder of this repository.
+
+### Effciency: Computation Time
+Tabulated Below are Average Computation Times for verifying a sample from the ASVSpoof2021 dataset. For context, each audio sample is approximately 3-5 seconds in length.
+
+| Detector Architecture (AWGN)  | Average Computation Time (s) |
+| ------------- | ------------- | ------------- |
+| Tortoise Audio Mini Encoder (MATLAB)  | 0.22  |
+| Baseline LFCC-GMM (MATLAB)  | 0.18  | 
+| Baseline CQCC-GMM (MATLAB)  | 0.27  | 
+| Baseline RawNet2 (MATLAB)  | 0.30  | 
+
+## Phase 2: Implementation of User Interface
 The user interface has been completed and is showcased in the following YouTube video: 
 [https://youtu.be/KU3gJ5L9Puw](https://youtu.be/KU3gJ5L9Puw) 
 
