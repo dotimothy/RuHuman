@@ -16,8 +16,11 @@ Instructor: Professor [Mani Srivastava](https://www.ee.ucla.edu/mani-srivastava/
 ## Required Submissions 
 [Project Proposal](https://github.com/dotimothy/RuHuman/blob/main/Proposal.md) <br>
 [Midterm Checkpoint Slides](https://github.com/dotimothy/RuHuman/blob/main/docs/media/RuHuman_Midterm.pdf) <br>
-[Final Report (In Progress)](https://github.com/dotimothy/RuHuman/blob/main/Report.md) <br>
+[Final Report](https://github.com/dotimothy/RuHuman/blob/main/Report.md) <br>
 [Final Slides](https://github.com/dotimothy/RuHuman/blob/main/docs/media/RuHuman_Final.pdf) 
+
+## Usage 
+The project source code root directory is under [<code>./projects/audio/</code>](https://github.com/dotimothy/RuHuman/tree/main/projects/audio).
 
 <p align="center">
   <img src='./docs/media/RuHuman.png' width='50%'>

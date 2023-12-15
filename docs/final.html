@@ -1,0 +1,440 @@
+<!--- Project Final Report  --->
+
+<!DOCTYPE html>
+
+<html>
+
+<base target="_blank"> 
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>RuHuman Project Report</title>
+  <link rel="shortcut icon" type="image/png" href="./media/favicon.png" />
+  <link rel="stylesheet" href="./RuHuman.css"/>
+  <script src="./RuHuman.js"></script>
+</head>
+
+<body>
+	<h1 id="final-report">Final Report</h1>
+	<h1 id="table-of-contents">Table of Contents</h1>
+	<ul>
+	<li><a href="#abstract">Abstract</a></li>
+	<li><a href="#1-introduction">Introduction</a></li>
+	<li><a href="#2-related-work">Related Work</a></li>
+	<li><a href="#3-technical-approach">Technical Approach</a></li>
+	<li><a href="#4-evaluation-and-results">Evaluation and Results</a></li>
+	<li><a href="#5-discussion-and-conclusions">Discussion and
+	Conclusions</a></li>
+	<li><a href="#6-references">References</a></li>
+	</ul>
+	<h1 id="abstract">Abstract</h1>
+	<p>The advent of generative AI is inevitable when generating synthetic
+	data to bypass certain human verification systems. The objective of
+	RuHuman is to evaluate/refine existing verification systems presented in
+	ASVSpoof that exploit the multimodalities of audio data in order to
+	establish a strong multi-factored conviction on deciding if the input is
+	being lively uttered by a human or by an audio deepfake. The technical
+	approach is to generate samples with top of the line software in voice
+	cloning (e.g. TortoiseTTS), then evaluate the standard CM/ASV metrics
+	among different pretrained detector architectures with the ASVSpoof2021
+	evaluation set &amp; make a adaptable user interface that allows any
+	wireless device with a microphone employ these systems in versatile
+	environments.</p>
+	<h1 id="introduction">1. Introduction</h1>
+	<p>The advent of generative AI is inevitable when generating synthetic
+	data to bypass certain human verification systems. With advancements in
+	audio deepfakes, human perception in distinguishing a real human speaker
+	(bonafide) from an audio deepfake (spoof) is rapidly increasing in
+	complexity. This is unfortunately seen in the growing number of audio
+	deepfake crimes, including a <a
+	href="https://www.youtube.com/watch?v=Dfo2MMGZTvU">recent story</a> on
+	the news highlighting a mother almost being scammed out of $15,000 from
+	a deepfake of her daughter being kidnapped. The assistance of an
+	automated AI-powered audio verification that’s easily accessible is
+	essential for mitigating more people from falling victim of these
+	schemes.</p>
+	<p>The objective of RuHuman is to evaluate/refine existing verification
+	systems that exploit the multimodalities of audio data in order to
+	establish a strong multi-factored conviction on deciding if the input is
+	being lively uttered by a human or by some other medium (e.g. recording
+	playback or synthesized with generative AI). Additionally, the project
+	aims to be easily accessible to the general public, being able to be
+	employed on any client wireless device that has a microphone. This makes
+	liveness detection versatile in many environments such as robocalls
+	&amp; virtual interviews.</p>
+	<p>Audio ASVSpoof (Automatic Speaker Verification and Spoofing
+	Countermeasure Challenge) [1] is a dedicated challenge that gathers
+	researchers from around the world to developing audio spoofing
+	pipelines. The two problems explored in this challenge are Logical
+	Access (LA) attacks (Speech Synthesis/Voice Conversions) and Physical
+	Attacks (PA) (Replay through Speaker). RuHuman will mainly being focused
+	on systems that participate in LA type tasks. Researchers have presented
+	audio encoding schemes such as MFCC (Mel-frequency cepstral
+	coefficients) &amp; Spectrograms to augment training their classifiers
+	for detection [2]. The limits of the practice is that some datasets used
+	for training in the competition were in a controlled environment, which
+	limits the effect of alternative additive sources in real-world
+	applications (e.g. noise, multi-speakers, nature) [3].</p>
+	<p>RuHuman investigates how additive noise sources effect the
+	performance of systems by injecting them with the audio sample before
+	testing. If this project yields success, the approach should indicate to
+	researchers in the ASVspoof competition that the technical factors of
+	additive sound sources is imperative for training their submissions in
+	real-world environments. On a more broader sense, the user interface
+	that will be implemented should make it easy for the general public to
+	assess if their audio files were bonafide. They should be able to access
+	audio liveness detection from a large range of computing: from a
+	smartphone to an audio workstation.</p>
+	<p>Potential challenges when evaluating these audio liveness detection
+	systems come from advanced spoof attacks such as multi-speakers. For
+	instance, a bonafide speaker can utter a words for the first few seconds
+	in the sample, and then generative AI can synthesize the rest of the
+	audio, leading to the system potentially classifying the sample only
+	based on the initial audio samples. Another way for a potential spoof is
+	if a human and generative AI spoke concurrently, it can produce a hidden
+	set, potentially leading to a false positive classification.</p>
+	<p>In the development of this project, a strong command of Digital
+	Speech Processing is required when working with analysis of audio files.
+	Specifically, knowledge of STFT (short-time Fourier Transform) and other
+	frequency based audio encodings will be applied in many of these
+	implementations. Knowledge of neural network architectures are useful
+	for training the detector to infer on real-world audio samples. Hardware
+	resources to development RuHuman are NVIDIA GPU(s) with high VRAM
+	(e.g. NVIDIA RTX 3090) for their acceleration improvements performing
+	convolution. Software resources for RuHuman include PyTorch [4] &amp;
+	MATLAB which is the code baseline for many of the deepfake voice
+	detectors/synthesizers. The program dependencies of this project are the
+	various deepfake voice cloning programs (e.g. Tortoise [5]) and
+	detectors from ASVSpoof.</p>
+	<p>The success for evaluating each of the models of ASVSpoof is to
+	evaluate them against the tandem detection cost function (t-DCF) [6]
+	formulated by the authors of ASVSpoof. It is a metric which involves
+	predefined ASV scores (from organizers), prior probabilities of speakers
+	(based on dataset), and CM scores from a respective detector. Secondary
+	metrics to evaluate success with be the equal error rate (EER) and
+	computation time of each submission. The objective is to minimize these
+	metrics for efficiency and accuracy. These metrics will be computed with
+	respect to the augmented dataset mentioned previously.</p>
+	<h1 id="related-work">2. Related Work</h1>
+	<p>There have been work in ASVSpoof submissions that fuse multiple audio
+	encoding models together in order to further minimize t-DCF and EER
+	metrics. Specifically, an ASVSpoof2019 submission from UCLA NESL
+	(Network and Embedded Systems Laboratory) implemented residual neural
+	networks using ResNet blocks as a countermeasure system [2]. The input
+	features being embedded are from either log-STFT (for Spectrograms),
+	MFCC, or CQCC transforms. With each individual ResNet model alone
+	(i.e. Spec-ResNet, MFCC-ResNet, &amp; CQCC-ResNet), the pooled t-DCF and
+	EER metrics only scored higher than the baseline models (i.e. LFCC-GMM,
+	CQCC-GMM) on the ASVSpoof2019 LA evaluation set. However, when their
+	ResNet models were fused, it resulted in approximately 25% improvement
+	from the baseline models with <strong>t-DCF = 0.1569</strong> &amp;
+	<strong>EER = 6.02</strong>. The takeaway is that combining multiple
+	models with different audio modalities together produce a strong
+	multi-factored countermeasure for audio speaker verification.</p>
+	<h1 id="technical-approach">3. Technical Approach</h1>
+	<p>The first phase of RuHuman is an evaluatory phase with some of the
+	baseline ASVSpoof models (can only generate CM scores with custom voice
+	detectors/cloners). First, each baseline model was worked out to
+	evaluate the CM scores of the 2021 ASVSpoof LA evaluation set to
+	generate the pooled t-DCF and EER scores seen in the organizer’s results
+	[1]. The 2021 ASVSpoof LA evaluation set consists of 181,566 utterances
+	comprised of 67 distinct speakers (37 Female, 30 Male). Then, additive
+	white gaussian noise <strong>(AWGN)</strong> with a signal to noise
+	ratio of <strong>50</strong> was injected in each audio sample to
+	generate a more ‘in-the wild’ sample that simulates a noisy channel.
+	This is done using the <code>awgn</code> function in MATLAB. Afterwards,
+	the CM scores, t-DCF, and EER metrics are recomputed to compare on AWGN
+	effects performance of the baseline system’s countermeasurablity.</p>
+	The second phase of RuHuman is an implementation phase of it’s user
+	interface to serve gateway devices. First, audio samples need to be sent
+	from client to server through an HTTP POST request to run the
+	verification pipeline. Secondly, the audio detector models are called
+	upon with an argument to the path of the audio sample to be verified.
+	Finally, a dashboard is created showcasing audio encoded features and
+	spoofing probabilities to the user. The cloud computer that hosts the
+	Python Flask Server with Classification Backends is equipped with an
+	NVIDIA RTX 3080 GPU. A high-level pipeline is displayed below on how an
+	audio sample is verified through RuHuman:
+	<p align="center">
+	<img src='./media/RuHumanHighLevelDiagram.jpg' width='30%'>
+	</p>
+	<h2 id="overview-of-cloners">Overview of Cloners</h2>
+	<p><strong>Tortoise [5]</strong> is a multi-voice text to speech
+	synthesis model which relies on autoregressive decoders, a text to audio
+	text transformer known as CLVP (Contrastive Learning Voice Pretrained
+	Transformer), and a DDPM (Denoising Diffusion Probabilistic Models). It
+	synthesizes the prompt input by first passing it through CLVP to
+	retrieve the optimal speech candidate given the prompt, then transforms
+	it into a Mel Spectrogram which finally converts to an audio sample by
+	using a vocoder. The optimization to generate semantically realistic
+	outputs is by finetuning the autoregressive model in the latent space
+	which has higher feature resolution then when discrete. The combination
+	of models were trained on over 49,000 hours of data from known TTS
+	datasets (LibriTTS,HiFiTTS) in addition to parsed samples from
+	audiobooks and podcasts. Testing for RuHuman was done by inferencing on
+	the default voice models found on it’s GitHub repository [11].</p>
+	<p><strong>Apple Personal Voice [7]</strong> is a personalized
+	propietary voice cloner that has been released for the latest (at time
+	of writing) version of iOS/macOS devices. It allows for synthesis of
+	personal voices by taking in 150 locally recorded bonafide utterances
+	(around 15 mins in length) from the user. Training the model is done
+	locally on the device and takes several hours to complete the model (due
+	to how it’s computed). Once completed the user can synthesize text to
+	speech of their own personal voice to be lively uttered through their
+	device. Due to the nature of how new the feature is and being
+	restrictive to Apple devices (at time of writing), exporting the model
+	and even it’s samples is a bit tedious (i.e. by converting a screen
+	recorded video into audio). Thus, only a qualitative assesment is done
+	with human perception (trained with author’s personal voice) with some
+	individual samples pass through RuHuman’s user interface for
+	testing.</p>
+	<h2 id="overview-of-detectors">Overview of Detectors</h2>
+	<p><strong>LFCC-GMM/CQCC-GMM [9]</strong> are baseline countermeasure
+	systems from ASVSpoof that rely on Gaussian Mixture Models for
+	clustering an input sample into a distribution that is comprised of the
+	linear combination of normal distributions (model uses 512
+	distributions). The weights of each normal distribution is determined by
+	the Expectation-Maximisation (EM) algorithm which add up to one. It
+	outputs the log-likelihood ratio (LLR) between being bonafide over being
+	spoofed. LFCC (Linear Frequency Cepstral Coefficients) is an audio
+	feature which maps frequency powers through a linear filter bank
+	(LFCC-GMM has 70 filters) whose representation is taking the DCT of the
+	log of the coefficients. CQCC (Constant Q Cepstral Coefficient) is a
+	similar audio feature which maps frequency powers through the constant Q
+	transform, then take the DCT of the log of it’s coefficients (CQCC-GMM
+	uses 19 coefficients). Feature encoding using cepstral features are
+	important because it emphasizes frequency components use for speaker
+	utterance (i.e. CQCC emphasis more spectro/temporal resolution at
+	lower/higher frequencies).</p>
+	<p><strong>RawNet2 [10]</strong> is an end to end raw audio spoofing
+	pipeline from ASVSpoof that relies on neural networks for classifying
+	between bonafide and spoofed utterances. The initial layer is encoded
+	through a Mel Sinc filter bank because of it’s frequency emphasis for
+	anti-spoofing. The input is truncated to 64,000 samples (4 seconds
+	assuming 16Khz sampling rate) as a means of control through the input
+	layer. Afterwards, it is passed through a sequence of ResBlock layers
+	with skip connection and feature map scaling (FMS) to enable
+	classification of discriminative information with attention. Finally,
+	the model output, represented as a two-class likelihood between bonafide
+	and spoof, is constructed by passing the res blocks output to a GRU
+	(Gate-Recurrent Unit) and a fully connected layer. It’s baseline
+	performance compared to the GMM models improved with lower pooled EER
+	and t-DCF metrics.</p>
+	<p>All baseline models from ASVSpoof outlined above were pretrained on
+	the ASVSpoof2019 LA training set [3]. It consists of 25,380 samples,
+	partitioned from 20/107 distinct speakers from the total dataset.</p>
+	<p>Out of concern that <strong>Tortoise [5]</strong> might be ethically
+	misused, the authors developed a countermeasure against the main cloner
+	in order to produce the likelihood that a sample was generated by the
+	program. The classifier architecture [11] is an audio mini encoder with
+	a classifier head which consists of a Res block (containing
+	normalization, sigmoid activation and 1D convolution) that goes through
+	cross-entropy loss to return the probability of the audio sample being
+	generated by TortoiseTTS. It compensates with noise by distributing 20%
+	of the sample’s probability mass to the labels during initialization.
+	RuHuman considers the classifier from Tortoise as an ‘Out in the Wild’
+	detector model since it was trained on a huge dataset as outlined in the
+	previous section of it’s counterpart.</p>
+	<h2 id="overview-of-user-interface">Overview of User Interface</h2>
+	<p>The user interface is implemented in Python Flask to server an HTTPS
+	Web App for RuHuman. The front-end consists of two options to upload an
+	audio sample: by recording live or uploading an audio sample. Recording
+	a live sample is achieved by utilizing the <code>getUserMedia()</code>
+	and <code>MediaRecorder()</code> function and saving a blob to an HTML
+	form. Uploading an audio file is simply creating an HTML form and
+	allowing file inputs to be uploaded to the form. Users can also choose a
+	detector model to use for verification, which is sent to the server via
+	another input in the form. The user interface for the front-end is shown
+	below:</p>
+	<p align="center">
+	<img src='./media/progress/UI_1.png' width='90%'>
+	</p>
+	<p>The back-end consists of linking the form to a POST request in
+	Python, which then calls on the selected detector from the front-end
+	form to run it’s verification pipeline. RuHuman firsts needs to convert
+	the uploaded audio sample to the respective input format for each
+	detector, which does so by invoking <code>ffmpeg</code>. To call each
+	detector, refactored callable functions are manually created for each
+	individual detector model with arguments to the path of the recently
+	uploaded audio file (by default pipelines are meant to run on entire
+	datasets). Detector functions are then imported to the Flask front-end
+	by using absolute paths to either the refactored Python function files
+	(Python-based) or <code>matlab.engine</code> (MATLAB-based). The outputs
+	(either LLR or raw probability) from the detectors are showcased as a
+	percentage. This output is visualized on a dashboard in addition to
+	other metrics such as computation time, the uploaded audio, and it’s Mel
+	Spectrogram (plotted with <code>librosa</code>). An example dashboard is
+	shown below:</p>
+	<p align="center">
+	<img src='./media/progress/UI_2.png' width='90%'>
+	</p>
+	<h1 id="evaluation-and-results">4. Evaluation and Results</h1>
+	<h2 id="phase-1-evaluation-of-metrics">Phase 1: Evaluation of
+	Metrics:</h2>
+	<h3 id="accuracy-t-dcf-eer">Accuracy: t-DCF &amp; EER</h3>
+	<p>Tabulated Below are Pooled t-DCF and EERs for the 2021 ASVSpoof
+	Evaluation Set for it’s Baseline Models with &amp; without AWGN:</p>
+	<table>
+	<thead>
+	<tr class="header">
+	<th>Detector Architecture (Normal)</th>
+	<th>Pooled t-DCF</th>
+	<th>Pooled EER (%)</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr class="odd">
+	<td>Baseline LFCC-GMM (MATLAB)</td>
+	<td>0.5758</td>
+	<td>19.30</td>
+	</tr>
+	<tr class="even">
+	<td>Baseline CQCC-GMM (MATLAB)</td>
+	<td>0.4964</td>
+	<td>15.62</td>
+	</tr>
+	<tr class="odd">
+	<td>Baseline RawNet2 (MATLAB)</td>
+	<td>0.4255</td>
+	<td>9.49</td>
+	</tr>
+	</tbody>
+	</table>
+	<table>
+	<thead>
+	<tr class="header">
+	<th>Detector Architecture (AWGN)</th>
+	<th>Pooled t-DCF</th>
+	<th>Pooled EER (%)</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr class="odd">
+	<td>Baseline LFCC-GMM (MATLAB)</td>
+	<td>0.8527</td>
+	<td>41.33</td>
+	</tr>
+	<tr class="even">
+	<td>Baseline CQCC-GMM (MATLAB)</td>
+	<td>0.7609</td>
+	<td>31.99</td>
+	</tr>
+	<tr class="odd">
+	<td>Baseline RawNet2 (MATLAB)</td>
+	<td>0.3317</td>
+	<td>7.23</td>
+	</tr>
+	</tbody>
+	</table>
+	<p>The full raw CM Scores that generated the above metrics using
+	<code>eval-package</code> can be found in the <a
+	href="https://github.com/dotimothy/RuHuman/tree/main/docs/results">results</a>
+	folder of this repository.</p>
+	<h3 id="efficiency-computation-time">Efficiency: Computation Time</h3>
+	<p>Tabulated Below are Average Computation Times for verifying a sample
+	from the ASVSpoof2021 LA evaluation dataset. For context, each audio
+	sample is approximately 3-5 seconds in length.</p>
+	<table>
+	<thead>
+	<tr class="header">
+	<th>Detector Architecture</th>
+	<th>Average Computation Time (s)</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr class="odd">
+	<td>Tortoise Audio Mini Encoder (Python)</td>
+	<td>0.22</td>
+	</tr>
+	<tr class="even">
+	<td>Baseline LFCC-GMM (MATLAB)</td>
+	<td>0.18</td>
+	</tr>
+	<tr class="odd">
+	<td>Baseline CQCC-GMM (MATLAB)</td>
+	<td>0.27</td>
+	</tr>
+	<tr class="even">
+	<td>Baseline RawNet2 (Python)</td>
+	<td>0.30</td>
+	</tr>
+	</tbody>
+	</table>
+	<h2 id="phase-2-implementation-of-user-interface">Phase 2:
+	Implementation of User Interface</h2>
+	The user interface has been completed and is showcased in the following
+	YouTube video: <a
+	href="https://youtu.be/KU3gJ5L9Puw">https://youtu.be/KU3gJ5L9Puw</a><br>
+  <iframe width="1159" height="652" src="https://www.youtube.com/embed/KU3gJ5L9Puw" title="RuHuman User Interface Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	<h1 id="discussion-and-conclusions">5. Discussion and Conclusions</h1>
+	<p>From the primary evaluation of metrics in phase 1, it is indicative
+	that additive noise can be injected to enhance an adversarial spoofing
+	attack to being successful. For the GMMs with LFCC/CQCC embeddings, the
+	rates for pooled t-DCF and EER increased by <strong>48.8/53.2%</strong>
+	and <strong>114.1/104.8%</strong> respectively. An interesting
+	observation is that the RawNet2 rates for pooled t-DCF and EER actually
+	decreased by <strong>22%</strong> and <strong>23.8%</strong> when AWGN
+	was applied to the evaluation set. Perhaps this is due to the initial
+	layer of Mel Sinc Filters which mitigated the effect of the AWGN before
+	passing through the Res blocks. On an efficiency note, all the detectors
+	were able to predict an audio sample within less than a second, making
+	them usable for liveness detection. Finally, the user interface was
+	deployed and tested to be easily accessible from gateway devices.</p>
+	<p>A future iteration of this project is to isolate noise sources as a
+	preprocessing step to prevent it from being sent to the detectors. Noise
+	should be mitigated as a factor when a CM score is computed for a
+	specific utterance. Another application from this project is to forward
+	the classifier outputs to an embedded control system (e.g. turning a
+	light red/green on whether the sample is spoofed/bonafide) for
+	performative action which requires liveness detection. Finally,
+	RuHuman’s audio verification can be fused with other modalities of
+	liveness detection (i.e. video deep fake detection) for a complete
+	system for detecting deepfakes. Audio generative models are advancing
+	rapidly with state of the art deepfakes, thus a complement of a
+	multi-modal discriminator for distinguishing bonadife from spoof is
+	imperative, which is what RuHuman strives to achieve.</p>
+	<h1 id="references">6. References</h1>
+	<p>[1] X. Liu et al., “ASVspoof 2021: Towards Spoofed and Deepfake
+	Speech Detection in the Wild,” in IEEE/ACM Transactions on Audio,
+	Speech, and Language Processing, vol. 31, pp. 2507-2522, 2023, doi:
+	10.1109/TASLP.2023.3285283.</p>
+	<p>[2] M. Alzantot, Z. Wang, and M. B. Srivastava, “Deep Residual Neural
+	Networks For Audio Spoofing Detection,” 2019, arXiv:1907.00501.</p>
+	<p>[3] A. Nautsch et al., ‘ASVspoof 2019: Spoofing Countermeasures for
+	the Detection of Synthesized, Converted and Replayed Speech’, IEEE
+	Transactions on Biometrics, Behavior, and Identity Science, vol. 3, no.
+	2, pp. 252–265, Apr. 2021.</p>
+	<p>[4] A. Paszke et al., “PyTorch: An Imperative Style, High-Performance
+	Deep Learning Library”, in Proceedings of the 33rd International
+	Conference on Neural Information Processing Systems, Red Hook, NY, USA:
+	Curran Associates Inc., 2019.</p>
+	<p>[5] J. Betker, ‘Better speech synthesis through scaling’, arXiv
+	[cs.SD]. 2023.</p>
+	<p>[6] T. Kinnunen et al., “t-DCF: a Detection Cost Function for the
+	Tandem Assessment of Spoofing Countermeasures and Automatic Speaker
+	Verification”, arXiv [eess.AS]. 2019.</p>
+	<p>[7] Apple Newsroom, “Apple previews Live Speech, Personal Voice, and
+	more new accessibility features”,
+	<a href="https://www.apple.com/newsroom/2023/05/apple-previews-live-speech-personal-voice-and-more-new-accessibility-features/">https://www.apple.com/newsroom/2023/05/apple-previews-live-speech-personal-voice-and-more-new-accessibility-features/.</a></p>
+	<p>[8] M. Todisco, H. Delgado and N. Evans, “Constant Q cepstral
+	coefficients: a spoofing countermeasure for automatic speaker
+	verification”, Computer, Speech and Language, vol. 45, pp. 516 –535,
+	2017.</p>
+	<p>[9] H. Tak, J. Patino, A. Nautsch, N. Evans, M. Todisco, “Spoofing
+	Attack Detection using the Non-linear Fusion of Sub-band Classifiers” in
+	Proc INTERSPEECH, 2020.</p>
+	<p>[10] H. Tak, J. Patino, M. Todisco, A. Nautsch, N. Evans, and A.
+	Larcher, ‘End-to-End anti-spoofing with RawNet2’, in IEEE International
+	Conference on Acoustics, Speech and Signal Processing (ICASSP), 2021,
+	pp. 6369–6373.</p>
+	<p>[11] J. Betker, TorToiSe text-to-speech.
+	<a href="https://github.com/neonbjb/tortoise-tts">https://github.com/neonbjb/tortoise-tts.</a></p>
+</body>
+
+<footer>
+	<img id="home" src='./media/favicon.png' onclick="goHome()">
+</footer>
+
+</html>
